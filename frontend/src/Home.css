@@ -1,0 +1,60 @@
+.Home {
+  background-image: url('/public/bckgrd-image.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  text-align: center;
+  background-color: #a7f5f1;
+  min-height: 100vh;
+}
+
+.Home-header {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  padding-right: 570px;
+  font-size: 60px;
+  font-family: cursive;
+  transform: rotate(-25deg);
+  color: #000000;
+}
+
+.Home p{
+  font-size: 23px;
+  text-align: right;
+  padding-right: 762px;
+  font-family: cursive;
+  transform: rotate(-25deg);
+}
+
+.buttons-grid {
+  transform: rotate(-25deg);
+  display: grid;
+  padding-left: 430px;
+  padding-top: 170px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  max-width: 420px;
+}
+
+.btn {
+  padding: 40px 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(0, 0, 0);
+  background-color: rgba(97, 218, 251, 0.15);
+  border: 2px solid #aae4f4;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.btn:hover {
+  background-color: #aae4f4;
+  color: #282c34;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(97, 218, 251, 0.3);
+}
