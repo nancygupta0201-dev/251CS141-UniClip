@@ -14,26 +14,26 @@
   flex-direction: column;
   align-items: center;
   padding-top: 40px;
-  padding-right: 570px;
+  padding-right: 580px;
   font-size: 60px;
   font-family: cursive;
-  transform: rotate(-25deg);
+  transform: rotate(-25deg) skew(14deg);
   color: #000000;
 }
 
 .Home p{
   font-size: 23px;
   text-align: right;
-  padding-right: 762px;
+  padding-right: 758px;
   font-family: cursive;
-  transform: rotate(-25deg);
+  transform: rotate(-25deg) skew(14deg);
 }
 
 .buttons-grid {
-  transform: rotate(-25deg);
+  transform: rotate(-25deg) skew(14deg);
   display: grid;
-  padding-left: 430px;
-  padding-top: 170px;
+  padding-left: 415px;
+  padding-top: 200px;
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
   max-width: 420px;
@@ -44,8 +44,8 @@
   font-size: 20px;
   font-weight: 600;
   color: rgb(0, 0, 0);
-  background-color: rgba(97, 218, 251, 0.15);
-  border: 2px solid #aae4f4;
+  background-color: rgba(43, 60, 64, 0.15);
+  border: 2px solid #2f3c40;
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -53,8 +53,8 @@
 }
 
 .btn:hover {
-  background-color: #aae4f4;
-  color: #282c34;
+  background-color: #2f3c40;
+  color: #ffffff;
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(97, 218, 251, 0.3);
 }
