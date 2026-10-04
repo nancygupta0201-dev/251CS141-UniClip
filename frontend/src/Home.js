@@ -8,7 +8,7 @@ export default function Home() {
 
   const [code, setCode] = useState("");
   const [nickname, setNickname] = useState("");
-  const [mode, setMode] = useState(null); // null | "create" | "join"
+  const [mode, setMode] = useState(null);
 
   const navigate = useNavigate();
 
@@ -16,6 +16,7 @@ export default function Home() {
 
   const handleCreate = () => {
     if (!nickname.trim()) return;
+    sessionStorage.setItem("nickname", nickname.trim());
     socket.emit("create_session", label(), (res) => {
       navigate(`/room/${res.code}`);
     });
@@ -23,6 +24,7 @@ export default function Home() {
 
   const handleJoin = () => {
     if (!nickname.trim()) return;
+    sessionStorage.setItem("nickname", nickname.trim());
     socket.emit("join_session", code, label(), (res) => {
       if (res.ok) navigate(`/room/${res.code}`);
       else console.log(res.error);
