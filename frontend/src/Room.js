@@ -110,7 +110,7 @@ export default function Room() {
 
       <header className="room-header">
         <h2>Room {code}</h2>
-        <button className="mini" onClick={handleLeave}>Leave room</button>
+        <button className="btn" onClick={handleLeave}>Leave room</button>
         <div className="devices">
           {devices.map((d, i) => <span className="chip" key={i}>{d}</span>)}
         </div>
