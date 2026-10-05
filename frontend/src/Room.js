@@ -98,12 +98,19 @@ export default function Room() {
   const handleDelete = (id) => socket.emit("delete_entry", code, id);
   const handleClear = () => socket.emit("clear_entries", code);
 
+  const handleLeave = () => {
+  socket.emit("leave_session", code);
+  sessionStorage.removeItem("nickname");
+  navigate("/");
+  };
+
   return (
     <div className="Room">
       {!online && <div className="banner">Reconnecting...</div>}
 
       <header className="room-header">
         <h2>Room {code}</h2>
+        <button className="mini" onClick={handleLeave}>Leave room</button>
         <div className="devices">
           {devices.map((d, i) => <span className="chip" key={i}>{d}</span>)}
         </div>

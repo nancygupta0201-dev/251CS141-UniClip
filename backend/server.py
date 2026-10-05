@@ -103,3 +103,19 @@ async def clear_entries(sid, code):
         return
     session["entries"] = []
     await sio.emit("entries_cleared", room=code)
+
+@sio.event
+async def leave_session(sid, code):
+    session = sessions.get(code)
+    if not session or sid not in session["devices"]:
+        return
+    session["devices"].pop(sid)
+    sid_to_code.pop(sid, None)
+    await sio.leave_room(sid, code)
+    if not session["devices"]:
+        task = delete_tasks.pop(code, None)
+        if task:
+            task.cancel()
+        del sessions[code]
+    else:
+        await sio.emit("devices_updated", list(session["devices"].values()), room=code)
