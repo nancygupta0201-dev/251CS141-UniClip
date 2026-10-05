@@ -62,7 +62,7 @@ async def join_session(sid, code, device_name):
     if code not in sessions:
         return {"ok": False, "error": "Invalid code"}
     await add_device(sid, code, device_name)
-    return {"ok": True, "code": code}
+    return {"ok": True, "code": code, "entries": sessions[code]["entries"]}
 
 @sio.event
 async def add_device(sid, code, name):
@@ -71,3 +71,35 @@ async def add_device(sid, code, name):
     sid_to_code[sid] = code
     await sio.emit("devices_updated", list(sessions[code]["devices"].values()), room=code)
 
+@sio.event
+async def new_entry(sid, code, entry):
+    session = sessions.get(code)
+    if not session or sid not in session["devices"]:
+        return {"ok": False, "error": "Not in room"}
+    if any(e["id"] == entry["id"] for e in session["entries"]):
+        return {"ok": True}  # same entry resent after reconnect
+    content = entry["content"].strip()[:5000]
+    if any(e["content"] == content for e in session["entries"]):
+        return {"ok": False, "error": "Already synced"}
+    entry["content"] = content
+    entry["device"] = session["devices"][sid]
+    entry["time"] = datetime.now().isoformat()
+    session["entries"].append(entry)
+    await sio.emit("entry_added", entry, room=code)
+    return {"ok": True}
+
+@sio.event
+async def delete_entry(sid, code, entry_id):
+    session = sessions.get(code)
+    if not session or sid not in session["devices"]:
+        return
+    session["entries"] = [e for e in session["entries"] if e["id"] != entry_id]
+    await sio.emit("entry_deleted", entry_id, room=code)
+
+@sio.event
+async def clear_entries(sid, code):
+    session = sessions.get(code)
+    if not session or sid not in session["devices"]:
+        return
+    session["entries"] = []
+    await sio.emit("entries_cleared", room=code)
